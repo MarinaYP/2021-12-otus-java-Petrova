@@ -7,29 +7,13 @@ public class CustomerReverseOrder {
 
     //todo: 2. надо реализовать методы этого класса
     //надо подобрать подходящую структуру данных, тогда решение будет в "две строчки"
-    //private LinkedHashMap<Customer, String> custReverseOrder = new LinkedHashMap<>();
-    private List<Customer> list = new LinkedList<>();
-    private ListIterator<Customer> iterator = list.listIterator();
-
+    private Deque<Customer> list = new LinkedList<>();
 
     public void add(Customer customer) {
-        iterator.add(customer);
+        list.addFirst(customer);
     }
 
     public Customer take() {
-        if (iterator.hasPrevious()) return (Customer) iterator.previous();
-        else return null;
-        //return null; // это "заглушка, чтобы скомилировать"
+        return (Customer) list.pop();
     }
-    /*public void printCust(Customer cust){
-        System.out.println("Customer{" +
-                "id=" + cust.getId() +
-                ", name='" + cust.getName() + '\'' +
-                ", scores=" + cust.getScores() +
-                '}');
-    }
-    public void printAllCust(){
-        System.out.println(list.size());
-        System.out.println(list);
-    }*/
 }
