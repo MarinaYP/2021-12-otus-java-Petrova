@@ -10,3 +10,4 @@
 
 rootProject.name = '2021-12-otus-java-Petrova'
 include 'hw01_gradle'
+include 'hw04_generics'
