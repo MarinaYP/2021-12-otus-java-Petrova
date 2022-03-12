@@ -10,6 +10,7 @@ public class MyCats extends MyPets{
         super("Cat", name, sex, age, weight, character);
         sumCatsWeight += weight;
     }
+
     public static int sumCatsWeight;
 
     @Override
@@ -19,6 +20,7 @@ public class MyCats extends MyPets{
         super.setWeight(weight);
         sumCatsWeight += weight;
     }
+
     @After
     public void catsPrint(){
         petsPrint();

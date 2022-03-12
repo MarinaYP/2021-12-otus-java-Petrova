@@ -14,6 +14,7 @@ public abstract class MyPets {
         System.out.println("This is " + getwhoIsIt() + ", name is " + getName() + ", sex is "+ getSex() +
                 ", age is "+ getAge() + ", weight is "+ getWeight() + ", character is "+ getCharacter());
     }
+
     protected void setWeight(int weight) {
         this.weight = weight;
     }
