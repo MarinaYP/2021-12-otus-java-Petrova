@@ -5,13 +5,17 @@ import ru.otus.annotations.Before;
 import ru.otus.annotations.Test;
 
 public class MyDogs extends  MyPets {
-    @Before
     public MyDogs(String name, char sex, int age, int weight, String character) {
         super("Dog", name, sex, age, weight, character);
         sumDogsWeight += weight;
     }
 
     public static int sumDogsWeight;
+
+    @Before
+    public void printInfo() {
+        System.out.println("My dog is crazy, just listen!");
+    }
 
     @Override
     @Test
