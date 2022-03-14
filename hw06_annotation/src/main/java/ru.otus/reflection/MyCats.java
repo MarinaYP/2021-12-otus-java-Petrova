@@ -10,16 +10,20 @@ public class MyCats extends MyPets{
         sumCatsWeight += weight;
     }
 
-    public static int sumCatsWeight;
+    public static int sumCatsWeight = 0;
 
     @Before
     public void printInfo() {
+        System.out.println("-----------------------------------");
         System.out.println("I want to tell you about the Cats!");
+        petsPrint();
+        System.out.println("Now sumCatsWeight = "+sumCatsWeight);
     }
 
     @Override
     @Test
     public void setWeight(int weight) {
+        System.out.println("Cat change weight: "+super.getWeight()+ " (was), "+weight + "(became)");
         sumCatsWeight -= super.getWeight();
         super.setWeight(weight);
         sumCatsWeight += weight;
@@ -27,8 +31,7 @@ public class MyCats extends MyPets{
 
     @After
     public void catsPrint(){
-        petsPrint();
-        System.out.println("sumCatsWeight="+sumCatsWeight);
+        System.out.println(">>sumCatsWeight = "+sumCatsWeight);
     }
 }
 
