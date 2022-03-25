@@ -10,12 +10,13 @@ public abstract class MyPets {
         this.character = character;
     }
 
+    public abstract void printInfo();
     public void petsPrint() {
         System.out.println("This is " + getwhoIsIt() + ", name is " + getName() + ", sex is "+ getSex() +
                 ", age is "+ getAge() + ", weight is "+ getWeight() + ", character is "+ getCharacter());
     }
 
-    protected void setWeight(int weight) {
+    protected void setWeight(int weight) throws Exception {
         this.weight = weight;
     }
 

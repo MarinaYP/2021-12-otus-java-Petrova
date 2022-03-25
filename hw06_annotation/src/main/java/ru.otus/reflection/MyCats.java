@@ -1,9 +1,5 @@
 package ru.otus.reflection;
 
-import ru.otus.annotations.After;
-import ru.otus.annotations.Before;
-import ru.otus.annotations.Test;
-
 public class MyCats extends MyPets{
     public MyCats(String name, char sex, int age, int weight, String character){
         super("Cat", name, sex, age, weight, character);
@@ -12,25 +8,22 @@ public class MyCats extends MyPets{
 
     public static int sumCatsWeight = 0;
 
-    @Before
+    @Override
     public void printInfo() {
-        System.out.println("-----------------------------------");
-        System.out.println("I want to tell you about the Cats!");
         petsPrint();
-        System.out.println("Now sumCatsWeight = "+sumCatsWeight);
+        catsWeightPrint();
     }
 
     @Override
-    @Test
-    public void setWeight(int weight) {
+    public void setWeight(int weight)  throws Exception{
+        if (weight <= 0) {throw new Exception("Weight can not be zero or negative!");}
         System.out.println("Cat change weight: "+super.getWeight()+ " (was), "+weight + "(became)");
         sumCatsWeight -= super.getWeight();
         super.setWeight(weight);
         sumCatsWeight += weight;
     }
 
-    @After
-    public void catsPrint(){
+    public static void catsWeightPrint(){
         System.out.println(">>sumCatsWeight = "+sumCatsWeight);
     }
 }
