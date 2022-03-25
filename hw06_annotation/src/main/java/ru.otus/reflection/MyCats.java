@@ -16,7 +16,8 @@ public class MyCats extends MyPets{
 
     @Override
     public void setWeight(int weight)  throws Exception{
-        if (weight <= 0) {throw new Exception("Weight can not be zero or negative!");}
+        if (weight <= 0) { sumCatsWeight = 0;
+            throw new Exception("Weight can not be zero or negative!");}
         System.out.println("Cat change weight: "+super.getWeight()+ " (was), "+weight + "(became)");
         sumCatsWeight -= super.getWeight();
         super.setWeight(weight);
