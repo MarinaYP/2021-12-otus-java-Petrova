@@ -7,11 +7,16 @@ import ru.otus.annotations.Test;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 //"Запускалка" теста
 public class TestsRunner {
     public static void mainTestRunner(String className) {
-      runTests(className);
+      try {
+          runTests(className);
+      }
+      catch (Exception ex){System.out.println(ex.getCause().getMessage());}
     }
 
     public static void printResults(){
@@ -21,52 +26,68 @@ public class TestsRunner {
         System.out.println("Passed tests: "+ (allTests - failedTests));
     }
 
-    private static void runTests(String className){
-        try
-        {   allTests ++;
-            Object object = createObject(className);
-            doTest(className, object);
+    private static void runTests(String className) throws Exception{
+            Class<?> clazz = findClass(className);
+            List<Method> methodsBefore = findMethods(clazz, Before.class);
+            List<Method> methodsTest = findMethods(clazz, Test.class);
+            List<Method> methodsAfter = findMethods(clazz, After.class);
+            for(Method method:methodsTest) {
+                Object object = createObject(clazz);
+                try
+                {
+                    allTests ++;
+                    doMethods(object, methodsBefore);
+                    method.invoke(object);
+                    doMethods(object, methodsAfter);
+                }
+                catch(Exception ex) {
+                    failedTests++;
+                    System.out.println("\nОШИБКА в тесте класса: " + ex.getCause().getMessage());}
+            }
 
         }
-        catch(Exception ex) {
-            failedTests++;
-            System.out.println("\nОШИБКА в тесте класса: " + ex.getMessage());}
+
+    //Печать методов
+    private static void printMethods(List<Method> methods) {
+        System.out.println("\nMethods are:");
+        for (Method method:methods){ System.out.println(method); }
     }
 
-    private static Object createObject(String className)
-            throws Exception {
+    //Поиск нужного класса
+    private static Class<?> findClass(String className) throws ClassNotFoundException
+    {
         Class<?> clazz = Class.forName(className);
         System.out.println("\nClass Name:" + clazz.getSimpleName());
         System.out.println("canonicalName:" + clazz.getCanonicalName());
+        return clazz;
+    }
+    //Общий поиск методов
+    private static List<Method> findMethods(Class<?> clazz, Class<? extends Annotation> annClass){
+        Method[] methods = clazz.getDeclaredMethods();
+        List<Method> methodsNeed = new ArrayList<>();
+        for (Method method:methods){
+            Annotation annotation = method.getDeclaredAnnotation(annClass);
+            if (annotation != null) {methodsNeed.add(method);}
+        }
+        return methodsNeed;
+    }
+
+    //создание объекта
+    private static Object createObject(Class<?> clazz)
+            throws Exception {
         Constructor<?> constructor = clazz.getDeclaredConstructor();
-        System.out.println("One constructor=" + constructor);
+        System.out.println("\nOne constructor=" + constructor);
         return constructor.newInstance();
     }
 
-    private static void doTest(String className, Object object) throws Exception{
-        Method methodBefore = null;
-        Method methodTest = null;
-        Method methodAfter = null;
-        Class<?> clazz = Class.forName(className);
-
-        Method[] methods = clazz.getDeclaredMethods();
-        for (Method method:methods){
-            Annotation annotationBefore = method.getDeclaredAnnotation(Before.class);
-            if (annotationBefore != null) {methodBefore = method;
-                System.out.println("MethodBefore="+methodBefore);}
-
-            Annotation annotationTest = method.getDeclaredAnnotation(Test.class);
-            if (annotationTest != null) {methodTest = method;
-                System.out.println("MethodTest="+methodTest);}
-
-            Annotation annotationAfter = method.getDeclaredAnnotation(After.class);
-            if (annotationAfter != null) {methodAfter = method;
-                System.out.println("MethodAfter="+methodAfter);}
+    //вызов методов
+   private static void doMethods(Object object, List<Method> methods) throws Exception {
+        for(Method method:methods){
+                method.invoke(object);
         }
-        methodBefore.invoke(object);
-        methodTest.invoke(object);
-        methodAfter.invoke(object);
-    }
+
+   }
+
     private static int allTests = 0;
     private static int failedTests = 0;
 }
