@@ -1,0 +1,30 @@
+Research before optimization:
+--------Xms(x)256m----------
+spend msec:178133, sec:178
+spend msec:108115, sec:108
+spend msec:102020, sec:102
+spend msec:101662, sec:101
+spend msec:88778, sec:88
+--average = 115,4
+---------Xms(x)512m--------- MOST OPTIMAL
+spend msec:73323, sec:73
+spend msec:68352, sec:68
+spend msec:68974, sec:68
+spend msec:66975, sec:66
+spend msec:67646, sec:67
+--average = 68,4
+---------Xms(x)1g---------
+spend msec:90630, sec:90
+spend msec:73116, sec:73
+spend msec:68144, sec:68
+spend msec:70146, sec:70
+spend msec:69980, sec:69
+--average = 74
++++++++++++++++++++++++++++++++++++++++++++
+Research after optimization:
+--------Xms(x)256m---------- MOST OPTIMAL
+spend msec:16103, sec:16
+--------Xms(x)128m----------
+OutOfMemory
+--------Xms(x)512m----------
+spend msec:17809, sec:17
