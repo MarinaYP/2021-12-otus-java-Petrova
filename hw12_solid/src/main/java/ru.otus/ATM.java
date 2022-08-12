@@ -6,11 +6,11 @@ import java.util.TreeMap;
 public class ATM {
     private final Storage storage;
 
-    public ATM() {
-        storage = new Storage();
+    public ATM(Denoms[] denom) {
+        storage = new Storage(denom);
     }
 
-    public void putMoney(/*int denom*/Denoms denom, int count){
+    public void putMoney(Denoms denom, int count){
       System.out.println("Put money: denomination = "+ denom.getDenom() + ", count = "+ count);
         storage.putMoney(denom, count);
     }
@@ -18,8 +18,8 @@ public class ATM {
     public void getMoney(int sum){
         System.out.println("Get money: "+ sum);
         TreeMap<Denoms, Cell>  getM = storage.canGetMoney(sum);
-        if (getM == null) System.out.println("Can't give that amount.");
-        else storage.getMoney(getM);
+        if (getM == null) {System.out.println("Can't give that amount.");}
+        else {storage.getMoney(getM);}
     }
 
     public void printBalancebyDenom(Denoms denom)

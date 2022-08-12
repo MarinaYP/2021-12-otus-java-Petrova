@@ -13,7 +13,7 @@ package ru.otus;
             this.count += count;
         }
 
-        protected void getMoney(int count){
+        protected void giveMoney(int count){
             this.count -= count;
         }
 

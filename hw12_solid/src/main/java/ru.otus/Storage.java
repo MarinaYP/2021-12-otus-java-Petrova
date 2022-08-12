@@ -8,19 +8,15 @@ import java.util.TreeMap;
  class Storage {
     private final TreeMap<Denoms, Cell> cells;
 
-    protected Storage(){
+    protected Storage(Denoms[] denomCases){
         cells = new TreeMap<>(Comparator.reverseOrder());
-        cells.put(Denoms.DENOM_50, new Cell());
-        cells.put(Denoms.DENOM_100, new Cell());
-        cells.put(Denoms.DENOM_200, new Cell());
-        cells.put(Denoms.DENOM_500, new Cell());
-        cells.put(Denoms.DENOM_1000, new Cell());
-        cells.put(Denoms.DENOM_2000, new Cell());
-        cells.put(Denoms.DENOM_5000, new Cell());
+        for(Denoms dc: denomCases) {
+            cells.put(dc, new Cell());
+        }
     }
 
     protected void putMoney(Denoms denom, int count) {
-        cells.get(denom).putMoney(count); //тут проверить на null (может написать тесты??)
+        cells.get(denom).putMoney(count);
     }
 
     /*protected int getMoneybyDenom(Denoms denom, int count){
@@ -47,7 +43,7 @@ import java.util.TreeMap;
                     delta -= count* cell.getKey().getDenom(); //вычитаем, что сформировали
             }
         }
-        if (delta == 0) return res;
+        if (delta == 0) {return res;}
         else {
             System.out.println("delta = " + delta);
             return null;
@@ -57,7 +53,7 @@ import java.util.TreeMap;
     //тут производим снятие
     protected void getMoney(TreeMap<Denoms,Cell> getM){
         for(Map.Entry<Denoms, Cell> one : getM.entrySet()) {
-           cells.floorEntry(one.getKey()).getValue().getMoney(one.getValue().getCount());
+           cells.floorEntry(one.getKey()).getValue().giveMoney(one.getValue().getCount());
            System.out.println("Get denomination "+ one.getKey() + ", count " + one.getValue().getCount());
         }
     }

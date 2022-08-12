@@ -3,7 +3,7 @@ package ru.otus;
 //запускалка банкомата
 public class Main {
     public static void main(String[] args) {
-        ATM atm = new ATM();
+        ATM atm = new ATM(Denoms.values());
         //заполняем банкомат рублями
         atm.putMoney(Denoms.DENOM_5000, 1);
         atm.putMoney(Denoms.DENOM_1000, 5);
