@@ -19,13 +19,6 @@ import java.util.TreeMap;
         cells.get(denom).putMoney(count);
     }
 
-    /*protected int getMoneybyDenom(Denoms denom, int count){
-        if (cells.get(denom).getCount() >= count) {
-            cells.get(denom).getMoney(count);
-            return count;
-        } //если столько купюр номинала нет - возвращаем 0
-        else return 0;
-    }*/
 
     //тут ничего не снимаем, а только проверяем
     protected TreeMap<Denoms, Cell> canGetMoney(int sum){
@@ -51,7 +44,7 @@ import java.util.TreeMap;
     }
 
     //тут производим снятие
-    protected void getMoney(TreeMap<Denoms,Cell> getM){
+    protected void giveMoney(TreeMap<Denoms,Cell> getM){
         for(Map.Entry<Denoms, Cell> one : getM.entrySet()) {
            cells.floorEntry(one.getKey()).getValue().giveMoney(one.getValue().getCount());
            System.out.println("Get denomination "+ one.getKey() + ", count " + one.getValue().getCount());

@@ -3,7 +3,7 @@ package ru.otus;
 import java.util.TreeMap;
 
 // класс Банкомат
-public class ATM {
+public class ATM implements atmInterface{
     private final Storage storage;
 
     public ATM(Denoms[] denom) {
@@ -15,16 +15,11 @@ public class ATM {
         storage.putMoney(denom, count);
     }
 
-    public void getMoney(int sum){
+    public void giveMoney(int sum){
         System.out.println("Get money: "+ sum);
         TreeMap<Denoms, Cell>  getM = storage.canGetMoney(sum);
         if (getM == null) {System.out.println("Can't give that amount.");}
-        else {storage.getMoney(getM);}
-    }
-
-    public void printBalancebyDenom(Denoms denom)
-    {
-        System.out.println("Denomination is " + denom.getDenom() + ", balance by denomination is "+ storage.getBalancebyDenom(denom));
+        else {storage.giveMoney(getM);}
     }
 
     public void printBalance(){

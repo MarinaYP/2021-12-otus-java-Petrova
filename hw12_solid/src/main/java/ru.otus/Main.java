@@ -13,9 +13,9 @@ public class Main {
         atm.printBalance();
         atm.printStorage();
         //попытка снять неверную сумму
-        atm.getMoney(11150);
+        atm.giveMoney(11150);
         //попытка снять верную сумму
-        atm.getMoney(11100);
+        atm.giveMoney(11100);
         //печать остаточного баланса денег и печать размещения в хранилище
         atm.printStorage();
         atm.printBalance();
