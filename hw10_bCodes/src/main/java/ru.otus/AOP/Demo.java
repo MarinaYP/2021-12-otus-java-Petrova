@@ -1,7 +1,10 @@
 package ru.otus.AOP;
 
 public class Demo {
-    public void action() {
-        new TestLogging().calculation(6);
+
+    public static void main(String[] args) {
+        TestLoggingInterface myClass = Ioc.createMyClass();
+        myClass.calculation(6);
+        myClass.calculation(3, 5);
     }
 }
