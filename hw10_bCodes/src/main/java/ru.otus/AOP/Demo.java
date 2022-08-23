@@ -6,5 +6,6 @@ public class Demo {
         TestLoggingInterface myClass = Ioc.createMyClass();
         myClass.calculation(6);
         myClass.calculation(3, 5);
+        myClass.calculation(-1, -2, "bubu");
     }
 }

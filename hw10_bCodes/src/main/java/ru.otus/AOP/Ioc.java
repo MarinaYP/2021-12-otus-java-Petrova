@@ -28,7 +28,7 @@ class Ioc {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            Annotation annotation = method.getDeclaredAnnotation(Log.class);
+            Annotation annotation = myClass.getClass().getMethod(method.getName(), method.getParameterTypes()).getAnnotation(Log.class);
             if (annotation != null) {
                 System.out.println("executed method:" + method.getName() + ", param:" + Arrays.deepToString(args));
             }
